@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Editor-generated files
+.idea
+
+# Database
+library.db
