@@ -1,0 +1,18 @@
+<!doctype html>
+<title>已借阅书籍</title>
+<h2>已借阅书籍查询和归还</h2>
+<table border="1">
+  <tr><th>序号</th><th>书名</th><th>作者</th><th>出版社</th><th>ISBN</th><th>主题词</th><th>应还日期</th><th>操作</th></tr>
+  {% for b in borrows %}
+  <tr>
+    <td>{{ b.idx }}</td><td>{{ b.name }}</td><td>{{ b.authors }}</td>
+    <td>{{ b.publisher }}</td><td>{{ b.isbn }}</td><td>{{ b.keywords }}</td>
+    <td>{{ b.due_date }}</td>
+    <td><a href="{{ url_for('return_book', borrow_id=b.id) }}" onclick="return confirm('确认归还？')">归还</a></td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{{ url_for('index') }}">返回上级</a>
+{% with m = get_flashed_messages() %}
+  {% if m %}<p style="color:red">{{ m[0] }}</p>{% endif %}
+{% endwith %}

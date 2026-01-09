@@ -1,0 +1,29 @@
+<!doctype html>
+<title>班级管理</title>
+<h2>相关班级管理</h2>
+<h3>已关联班级</h3>
+{% if related %}
+  <ul>
+    {% for c in related %}
+      <li>
+        {{ c }}
+        <form method="post" action="{{ url_for('class_remove') }}" style="display:inline">
+          <input type="hidden" name="class_id" value="{{ c }}">
+          <button onclick="return confirm('确认取消关联？')">取消关联</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>暂无关联班级</p>
+{% endif %}
+
+<h3>新增关联</h3>
+<form method="post" action="{{ url_for('class_add') }}">
+  <input name="class_id" placeholder="班级编号" required>
+  <button>关联</button>
+</form>
+<a href="{{ url_for('index') }}">返回上级</a>
+{% with m = get_flashed_messages() %}
+  {% if m %}<p style="color:red">{{ m[0] }}</p>{% endif %}
+{% endwith %}

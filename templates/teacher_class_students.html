@@ -1,0 +1,31 @@
+<!doctype html>
+<title>班级学生列表</title>
+<h2>班级：{{ class_info.id }} - {{ class_info.name }}</h2>
+<h3>学生列表：</h3>
+
+{% if students %}
+  <table border="1">
+    <tr><th>序号</th><th>学号</th><th>姓名</th><th>性别</th><th>年龄</th><th>操作</th></tr>
+    {% for s in students %}
+    <tr>
+      <td>{{ s.idx }}</td>
+      <td>{{ s.uid }}</td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.sex }}</td>
+      <td>{{ s.age }}</td>
+      <td><a href="{{ url_for('teacher_student_borrow', class_id=class_info.id, student_uid=s.uid) }}">查看借书</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>该班级暂无学生</p>
+{% endif %}
+
+<p>
+  <a href="{{ url_for('teacher_class_borrow') }}">返回班级列表</a> |
+  <a href="{{ url_for('index') }}">返回上级</a>
+</p>
+
+{% with m = get_flashed_messages() %}
+  {% if m %}<p style="color:red">{{ m[0] }}</p>{% endif %}
+{% endwith %}

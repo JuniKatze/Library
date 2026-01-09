@@ -1,0 +1,30 @@
+<!doctype html>
+<title>书籍查询和借阅</title>
+<h2>书籍查询和借阅</h2>
+{% with m = get_flashed_messages() %}
+  {% if m %}<p style="color:red">{{ m[0] }}</p>{% endif %}
+{% endwith %}
+<div>
+  分类：
+  <a href="{{ url_for('book_query') }}">全部</a>
+  {% for c in categories %}
+    | <a href="{{ url_for('book_by_cat', cat=c) }}">{{ c }}</a>
+  {% endfor %}
+</div>
+<table border="1">
+  <tr><th>序号</th><th>书名</th><th>作者</th><th>出版社</th><th>ISBN</th><th>主题词</th><th>剩余</th><th>操作</th></tr>
+  {% for b in books %}
+  <tr>
+    <td>{{ b.idx }}</td><td>{{ b.name }}</td><td>{{ b.authors }}</td>
+    <td>{{ b.publisher }}</td><td>{{ b.isbn }}</td><td>{{ b.keywords }}</td>
+    <td>{{ b.remain }}</td>
+    <td>
+      <form method="post" action="{{ url_for('borrow') }}" style="display:inline">
+        <input type="hidden" name="isbn" value="{{ b.isbn }}">
+        <button>借阅</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{{ url_for('index') }}">返回上级</a>

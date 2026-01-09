@@ -1,0 +1,44 @@
+<!doctype html>
+<title>学生借书详情</title>
+<h2>学生借书详情</h2>
+<h3>班级：{{ class_info.id }} - {{ class_info.name }}</h3>
+<h3>学生：{{ student_info.uid }} - {{ student_info.name }}</h3>
+
+{% if borrows %}
+  <table border="1">
+    <tr>
+      <th>序号</th>
+      <th>书名</th>
+      <th>作者</th>
+      <th>出版社</th>
+      <th>ISBN</th>
+      <th>主题词</th>
+      <th>借书日期</th>
+      <th>应还日期</th>
+    </tr>
+    {% for b in borrows %}
+    <tr>
+      <td>{{ b.idx }}</td>
+      <td>{{ b.book_name }}</td>
+      <td>{{ b.authors }}</td>
+      <td>{{ b.publisher }}</td>
+      <td>{{ b.isbn }}</td>
+      <td>{{ b.keywords }}</td>
+      <td>{{ b.borrow_date }}</td>
+      <td>{{ b.due_date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>该学生暂无借书记录</p>
+{% endif %}
+
+<p>
+  <a href="{{ url_for('teacher_class_students', class_id=class_info.id) }}">返回学生列表</a> |
+  <a href="{{ url_for('teacher_class_borrow') }}">返回班级列表</a> |
+  <a href="{{ url_for('index') }}">返回上级</a>
+</p>
+
+{% with m = get_flashed_messages() %}
+  {% if m %}<p style="color:red">{{ m[0] }}</p>{% endif %}
+{% endwith %}

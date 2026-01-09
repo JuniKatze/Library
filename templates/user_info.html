@@ -1,0 +1,30 @@
+<!doctype html>
+<title>用户基本信息</title>
+<h2>用户基本信息</h2>
+<p>工号/学号：{{ user.uid }}</p>
+<p>姓名：{{ user.name }}</p>
+<p>性别：{{ user.sex }}</p>
+<p>年龄：{{ user.age }}</p>
+<p>所属学院：{{ user.college }}</p>
+{% if user.join_year %}<p>来校年份：{{ user.join_year }}</p>{% endif %}
+
+{% if class_list %}
+  <p>
+    {% if session.get('role') == 'TEA' %}相关班级：{% else %}所属班级：{% endif %}
+    {% for c in class_list %}
+      {{ c }}{% if not loop.last %}、{% endif %}
+    {% endfor %}
+  </p>
+{% endif %}
+
+<hr>
+<h3>修改信息</h3>
+<form method="post" action="{{ url_for('user_update') }}">
+  新姓名：<input name="name" placeholder="留空则不改"><br>
+  新年龄：<input name="age" placeholder="留空则不改"><br>
+  <button>保存</button>
+</form>
+<a href="{{ url_for('index') }}">返回上级</a>
+{% with m = get_flashed_messages() %}
+  {% if m %}<p style="color:red">{{ m[0] }}</p>{% endif %}
+{% endwith %}

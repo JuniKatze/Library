@@ -1,0 +1,26 @@
+<!doctype html>
+<title>教师查询班级学生借书情况</title>
+<h2>相关班级学生借书情况查询</h2>
+<h3>请选择要查询的班级：</h3>
+
+{% if classes %}
+  <table border="1">
+    <tr><th>序号</th><th>班级编号</th><th>班级名称</th><th>操作</th></tr>
+    {% for c in classes %}
+    <tr>
+      <td>{{ c.idx }}</td>
+      <td>{{ c.id }}</td>
+      <td>{{ c.name }}</td>
+      <td><a href="{{ url_for('teacher_class_students', class_id=c.id) }}">查看学生</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>暂无关联班级</p>
+{% endif %}
+
+<p><a href="{{ url_for('index') }}">返回上级</a></p>
+
+{% with m = get_flashed_messages() %}
+  {% if m %}<p style="color:red">{{ m[0] }}</p>{% endif %}
+{% endwith %}

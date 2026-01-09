@@ -1,0 +1,21 @@
+<!doctype html>
+<title>图书馆管理系统</title>
+<h2>欢迎，{{ user.name }}！</h2>
+<p>角色：{% if role == 'TEA' %}教师{% else %}学生{% endif %}</p>
+
+<ul>
+  <li><a href="{{ url_for('user_info') }}">用户基本信息</a></li>
+  <li><a href="{{ url_for('book_query') }}">书籍查询和借阅</a></li>
+  <li><a href="{{ url_for('my_borrow') }}">已借阅书籍查询和归还</a></li>
+
+  {% if role == 'TEA' %}
+    <li><a href="{{ url_for('teacher_class_borrow') }}">相关班级学生借书情况查询</a></li>
+    <li><a href="{{ url_for('list_class') }}">班级管理</a></li>
+  {% endif %}
+
+  <li><a href="{{ url_for('logout') }}">退出登录</a></li>
+</ul>
+
+{% with m = get_flashed_messages() %}
+  {% if m %}<p style="color:red">{{ m[0] }}</p>{% endif %}
+{% endwith %}
