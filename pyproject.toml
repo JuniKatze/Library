@@ -1,5 +1,5 @@
 [project]
-name = "library"
+name = "Library"
 version = "1.0.0"
 description = "某大学生的2025年秋季Python课程大作业之图书管理系统"
 readme = "README.md"
