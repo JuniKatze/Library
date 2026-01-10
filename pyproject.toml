@@ -1,7 +1,7 @@
 [project]
-name = "library-2"
-version = "0.1.0"
-description = "Add your description here"
+name = "library"
+version = "1.0.0"
+description = "某大学生的2025年秋季Python课程大作业之图书管理系统"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
